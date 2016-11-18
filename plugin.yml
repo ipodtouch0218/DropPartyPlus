@@ -1,0 +1,9 @@
+main: me.ipodtouch0218.droppartyplus.DPPMain
+name: DropPartyPlus
+version: 1.0
+author: ipodtouch0218
+commands:
+   dpp:
+      usage: /<command> <start,stop,reload> [dropparty]
+      permission: droppartyplus.start
+      aliases: [dropparty, dp, droppartyplus]

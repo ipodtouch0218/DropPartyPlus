@@ -1,0 +1,10 @@
+DropParties:
+  Party1:
+    delay-between-items: 2
+    drops:
+      Item1:
+        command: "/give {player} diamond 1"
+        message: "&b{player} &fhas been given 1 &bDiamond&f."
+      DoesntMatterWhatTheNameIs:
+        command: "/nuke {player}"
+        message: "Uhoh for {player}!"
