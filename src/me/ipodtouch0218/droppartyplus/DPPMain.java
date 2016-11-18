@@ -11,7 +11,6 @@ import me.ipodtouch0218.droppartyplus.manager.DropPartyManager;
 
 public class DPPMain extends JavaPlugin {
 	
-	private Map<String, ConfigurationSection> partyList = new HashMap<String, ConfigurationSection>();
 	private Map<String, DropPartyManager> parties = new HashMap<String, DropPartyManager>();
 	
     @Override
@@ -20,6 +19,8 @@ public class DPPMain extends JavaPlugin {
     	saveConfig();
     	getCommand("dpp").setExecutor(new CommandDPP(this));
     	loadDropParties();
+    	System.out.println(parties);
+    	System.out.println(getPartyInfo("Party1"));
     }
     
     public void loadDropParties() {
@@ -28,7 +29,6 @@ public class DPPMain extends JavaPlugin {
             if (!dropSection.isConfigurationSection(key)) {
                 continue;
             }
-            partyList.put(key, dropSection.getConfigurationSection(key));
             parties.put(key, new DropPartyManager(dropSection.getConfigurationSection(key), this));
         }
     }

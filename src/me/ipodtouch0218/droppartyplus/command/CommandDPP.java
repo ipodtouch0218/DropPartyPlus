@@ -26,7 +26,7 @@ public class CommandDPP implements CommandExecutor {
 		String sub = args[0].toLowerCase();
 		
 		if (sub.equals("start")) {
-			if (args.length == 1) {
+			if (args.length == 2) {
 				if (plugin.getDropParty(args[1]) != null) {
 					plugin.getDropParty(args[1]).startParty();
 				} else {
@@ -34,17 +34,18 @@ public class CommandDPP implements CommandExecutor {
 					return true;
 				}
 			} else {
-				if (plugin.getDropParties().get(1) != null) {
-					plugin.getDropParties().get(1).startParty();
+				if (plugin.getDropParties().get(0) != null) {
+					plugin.getDropParties().get(0).startParty();
 				} else {
-					sender.sendMessage(ChatColor.GREEN + "[DPP]" + ChatColor.WHITE + " Party " + ChatColor.YELLOW + args[1] + ChatColor.WHITE + " doesn't exist!");
+					System.out.println(plugin.getDropParties());
+					sender.sendMessage(ChatColor.GREEN + "[DPP]" + ChatColor.WHITE + " No Parties Exist!");
 					return true;
 				}
 			}
 			sender.sendMessage(ChatColor.GREEN + "[DPP]" + ChatColor.WHITE + " Party " + ChatColor.YELLOW + args[1] + ChatColor.WHITE + " started!");
 			return true;
 		} else if (sub.equals("stop")) {
-			if (args.length == 1) {
+			if (args.length == 2) {
 				if (plugin.getDropParty(args[1]) != null) {
 					plugin.getDropParty(args[1]).stopParty();
 				} else {
@@ -52,10 +53,10 @@ public class CommandDPP implements CommandExecutor {
 					return true;
 				}
 			} else {
-				if (plugin.getDropParties().get(1) != null) {
-					plugin.getDropParties().get(1).stopParty();
+				if (plugin.getDropParties().get(0) != null) {
+					plugin.getDropParties().get(0).stopParty();
 				} else {
-					sender.sendMessage(ChatColor.GREEN + "[DPP]" + ChatColor.WHITE + " Party " + ChatColor.YELLOW + args[1] + ChatColor.WHITE + " doesn't exist!");
+					sender.sendMessage(ChatColor.GREEN + "[DPP]" + ChatColor.WHITE + " No Parties Exist!");
 					return true;
 				}
 			}
