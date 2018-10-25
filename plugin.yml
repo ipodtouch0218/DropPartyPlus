@@ -4,6 +4,6 @@ version: 1.0
 author: ipodtouch0218
 commands:
    dpp:
-      usage: /<command> <start,stop,reload> [dropparty]
+      usage: /<command> <start,stop,reload,join> [dropparty]
       permission: droppartyplus.start
       aliases: [dropparty, dp, droppartyplus]

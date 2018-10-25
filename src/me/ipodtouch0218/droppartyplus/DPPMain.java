@@ -1,17 +1,24 @@
 package me.ipodtouch0218.droppartyplus;
 
+import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.ipodtouch0218.droppartyplus.command.CommandDPP;
 import me.ipodtouch0218.droppartyplus.manager.DropPartyManager;
+import me.ipodtouch0218.droppartyplus.util.Util;
 
 public class DPPMain extends JavaPlugin {
 	
-	private Map<String, DropPartyManager> parties = new HashMap<String, DropPartyManager>();
+	private HashMap<String, DropPartyManager> parties = new HashMap<String, DropPartyManager>();
+	private File messageFile = new File(getDataFolder() + "/messages.yml");
+	private FileConfiguration messageConfig = YamlConfiguration.loadConfiguration(messageFile);
+	
+	private DropPartyManager activeParty = null;
 	
     @Override
     public void onEnable() {
@@ -19,8 +26,19 @@ public class DPPMain extends JavaPlugin {
     	saveConfig();
     	getCommand("dpp").setExecutor(new CommandDPP(this));
     	loadDropParties();
-    	System.out.println(parties);
-    	System.out.println(getPartyInfo("Party1"));
+    	loadOtherConfigs();
+    	new Util(this);
+    }
+    
+    @Override
+    public void onDisable() {
+    	Util.nullify();
+    }
+    
+    private void loadOtherConfigs() {
+    	if (!messageFile.exists()) {
+    		saveResource("messages.yml", true);
+    	}
     }
     
     public void loadDropParties() {
@@ -33,7 +51,7 @@ public class DPPMain extends JavaPlugin {
         }
     }
     
-    public Map<String, DropPartyManager> getDropParties() {
+    public HashMap<String, DropPartyManager> getDropParties() {
     	return parties;
     }
     
@@ -52,5 +70,21 @@ public class DPPMain extends JavaPlugin {
     	} else { 
     		return null;
     	}
+    }
+    
+    public FileConfiguration getMessageConfig() {
+    	return messageConfig;
+    }
+    
+    public void setActiveParty(DropPartyManager mngr) {
+    	activeParty = mngr;
+    }
+    
+    public void startActiveParty() {
+    	activeParty.queueParty();
+    }
+    
+    public DropPartyManager getActiveParty() {
+    	return activeParty;
     }
 }
